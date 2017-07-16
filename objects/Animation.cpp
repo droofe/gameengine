@@ -15,12 +15,8 @@ ALLEGRO_BITMAP *Animation::getBitmap() {
 }
 
 void Animation::updateFrame() {
-	printf("Updating frame %p\n", *this->currentFrame);
+	this->currentFrame++;
 	if (this->currentFrame == this->frames.end()) {
-		printf("Wrap\n");
 		this->currentFrame = this->frames.begin();
-	} else {
-		printf("++\n");
-		this->currentFrame++;
 	}
 }

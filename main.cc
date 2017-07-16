@@ -36,8 +36,6 @@ int main(int argc, char **argv) {
 	Animation run(sheet);
 	run.addFrame(8, 13, 21, 24);
 	run.addFrame(58, 13, 21, 24);
-	run.addFrame(8, 13, 21, 24);
-	run.addFrame(58, 13, 21, 24);
 
 	animations.push_back(&run);
 
@@ -62,18 +60,17 @@ int main(int argc, char **argv) {
 
 		al_clear_to_color(al_map_rgb(0,0,100));
 
-		std::list<Animation*>::iterator ait;
-		for (ait = animations.begin(); ait != animations.end(); ++ait) {
-			(*ait)->updateFrame();
-		}
-
 		std::list<Drawable*>::iterator dit;
 		for (dit = drawableObjects.begin(); dit != drawableObjects.end(); ++dit) {
 			ALLEGRO_BITMAP *image = (*dit)->currentAnimation->getBitmap();
 			printf("Rendering animation at %p\n", image);
 		    al_draw_bitmap(image, (*dit)->x, (*dit)->y, 1);
 		}
-		
+
+		std::list<Animation*>::iterator ait;
+		for (ait = animations.begin(); ait != animations.end(); ++ait) {
+			(*ait)->updateFrame();
+		}
 
 		al_flip_display();
 	}

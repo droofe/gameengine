@@ -12,7 +12,7 @@ class Animation {
 		void updateFrame();
 	protected:
 		std::list<ALLEGRO_BITMAP*> frames;
-		std::list<ALLEGRO_BITMAP*>::iterator currentFrame;
+		std::list<ALLEGRO_BITMAP*>::const_iterator currentFrame;
 		ALLEGRO_BITMAP *parent;
 };
 

@@ -9,6 +9,7 @@ class Animation {
 		Animation(ALLEGRO_BITMAP *pparent);
 		void addFrame(int x, int y, int w, int h);
 		ALLEGRO_BITMAP *getBitmap();
+		void updateFrame();
 	protected:
 		std::list<ALLEGRO_BITMAP*> frames;
 		std::list<ALLEGRO_BITMAP*>::iterator currentFrame;

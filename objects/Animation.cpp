@@ -1,3 +1,4 @@
+#include <iostream>
 #include "../include/Animation.hpp"
 
 Animation::Animation(ALLEGRO_BITMAP *pparent){
@@ -10,9 +11,14 @@ void Animation::addFrame(int x, int y, int w, int h) {
 }
 
 ALLEGRO_BITMAP *Animation::getBitmap() {
+	return *(this->currentFrame);
+}
+
+void Animation::updateFrame() {
+	printf("Updating frame %p\n", *this->currentFrame);
 	if (this->currentFrame == this->frames.end()) {
 		this->currentFrame = this->frames.begin();
+	} else {
+		this->currentFrame++;
 	}
-	
-	return *(this->currentFrame++);
 }

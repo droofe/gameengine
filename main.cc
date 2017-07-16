@@ -31,11 +31,22 @@ int main(int argc, char **argv) {
 	eventQueue = al_create_event_queue();
 	al_register_event_source(eventQueue, al_get_display_event_source(display));
 
+	std::list<Animation*> animations;
+
 	Animation run(sheet);
 	run.addFrame(8, 13, 21, 24);
 	run.addFrame(58, 13, 21, 24);
+	run.addFrame(8, 13, 21, 24);
+	run.addFrame(58, 13, 21, 24);
 
-	Drawable player(100, 200, &run);
+	animations.push_back(&run);
+
+	std::list<Drawable*> drawableObjects;
+
+	Drawable player1(100, 200, &run);
+	drawableObjects.push_back(&player1);
+	Drawable player2(200, 200, &run);
+	drawableObjects.push_back(&player2);
 
 	while (!quit) {
 		ALLEGRO_EVENT event;
@@ -43,16 +54,26 @@ int main(int argc, char **argv) {
 
 		al_set_target_bitmap(al_get_backbuffer(display));
 		al_init_timeout(&timeout, 0.10);
-    	bool get_event = al_wait_for_event_until(eventQueue, &event, &timeout);
+		bool get_event = al_wait_for_event_until(eventQueue, &event, &timeout);
 
 		if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
 			quit = true;
 		}
 
-		ALLEGRO_BITMAP *image = player.currentAnimation->getBitmap();
-
 		al_clear_to_color(al_map_rgb(0,0,100));
-		al_draw_bitmap(image, player.x, player.y, 1);
+
+		std::list<Animation*>::iterator ait;
+		for (ait = animations.begin(); ait != animations.end(); ++ait) {
+			(*ait)->updateFrame();
+		}
+
+		std::list<Drawable*>::iterator dit;
+		for (dit = drawableObjects.begin(); dit != drawableObjects.end(); ++dit) {
+			ALLEGRO_BITMAP *image = (*dit)->currentAnimation->getBitmap();
+			printf("Rendering animation at %p\n", image);
+		    al_draw_bitmap(image, (*dit)->x, (*dit)->y, 1);
+		}
+		
 
 		al_flip_display();
 	}

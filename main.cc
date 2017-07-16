@@ -63,8 +63,7 @@ int main(int argc, char **argv) {
 		std::list<Drawable*>::iterator dit;
 		for (dit = drawableObjects.begin(); dit != drawableObjects.end(); ++dit) {
 			ALLEGRO_BITMAP *image = (*dit)->currentAnimation->getBitmap();
-			printf("Rendering animation at %p\n", image);
-		    al_draw_bitmap(image, (*dit)->x, (*dit)->y, 1);
+			al_draw_bitmap(image, (*dit)->x, (*dit)->y, 1);
 		}
 
 		std::list<Animation*>::iterator ait;
